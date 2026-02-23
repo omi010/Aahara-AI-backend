@@ -8,9 +8,20 @@ from sqlalchemy.orm import Session
 from aahara.database import SessionLocal
 from aahara.models.user import User
 import os
+from dotenv import load_dotenv
+from pathlib import Path
+
+# Load .env properly
+env_path = Path(__file__).resolve().parent.parent / ".env"
+load_dotenv(dotenv_path=env_path)
+
+SECRET_KEY = os.getenv("SECRET_KEY")
+ALGORITHM = os.getenv("ALGORITHM", "HS256")
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 60))
+
+
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-SECRET_KEY = "aahara_super_secret_key_change_this"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
 
