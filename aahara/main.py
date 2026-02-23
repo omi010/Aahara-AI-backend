@@ -13,10 +13,16 @@ from datetime import date,timedelta
 from sqlalchemy import func
 from aahara.utils.calorie_engine import estimate_calories
 from aahara.models.weight import WeightLog
+# 👇 AFTER THAT include routers
+from .routers import auth, meals
 
-app = FastAPI()
+app = FastAPI(
+    title="Aahara AI",
+    description="Know Your Food.",
+    version="1.0.0"
+)
 
-# ✅ CORS MUST BE HERE
+# ✅ Add CORS AFTER creating app
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -28,16 +34,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-app = FastAPI(
-    title="Aahara AI",
-    description="Know Your Food.",
-    version="1.0.0"
-)
-
-app.include_router(user_routes.router)
-app.include_router(meal_routes.router)
-
+# ✅ Include routers AFTER middleware
+app.include_router(auth.router)
+app.include_router(meals.router)
 
 @app.get("/")
 def root():
