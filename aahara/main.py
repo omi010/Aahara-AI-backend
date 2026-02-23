@@ -14,9 +14,11 @@ from aahara.utils.calorie_engine import estimate_calories
 from aahara.models.weight import WeightLog
 from fastapi.middleware.cors import CORSMiddleware
 
+app = FastAPI()
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # for now allow all
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
