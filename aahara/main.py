@@ -14,27 +14,20 @@ from sqlalchemy import func
 from aahara.utils.calorie_engine import estimate_calories
 from aahara.models.weight import WeightLog
 
-app = FastAPI(
-    title="Aahara AI",
-    description="Know Your Food.",
-    version="1.0.0"
-)
+app = FastAPI()
 
-# ✅ Add CORS AFTER creating app
+# ✅ CORS MUST BE HERE
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "https://aahara-ai-backend.onrender.com"
-    ],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# ✅ Include routers AFTER middleware
-app.include_router(auth.router)
-app.include_router(meals.router)
+app.include_router(user_routes.router)
+app.include_router(meal_routes.router)
+
 
 @app.get("/")
 def root():
@@ -50,7 +43,6 @@ def get_db():
         yield db
     finally:
         db.close()
-
 
 @app.get("/")
 def root():
