@@ -13,8 +13,6 @@ from datetime import date,timedelta
 from sqlalchemy import func
 from aahara.utils.calorie_engine import estimate_calories
 from aahara.models.weight import WeightLog
-# 👇 AFTER THAT include routers
-from .routers import auth, meals
 
 app = FastAPI(
     title="Aahara AI",
