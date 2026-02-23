@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Depends, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from aahara.routes import user_routes, meal_routes
 from aahara.database import engine, Base, SessionLocal
@@ -12,13 +13,16 @@ from datetime import date,timedelta
 from sqlalchemy import func
 from aahara.utils.calorie_engine import estimate_calories
 from aahara.models.weight import WeightLog
-from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+# ✅ CORS MUST BE HERE
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=[
+        "http://localhost:5173",
+        "https://aahara-ai-backend.onrender.com"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
