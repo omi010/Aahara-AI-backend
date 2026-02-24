@@ -19,7 +19,7 @@ app = FastAPI()
 # ✅ CORS MUST BE HERE
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://aahara-ai-frontend.onrender.com/"],
+    allow_origins=["https://aahara-ai-frontend.onrender.com"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
